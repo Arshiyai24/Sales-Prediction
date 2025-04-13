@@ -1,0 +1,256 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+import plotly.graph_objects as go
+import plotly.io as plio
+from xgboost import XGBRegressor
+
+from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import joblib
+from warnings import filterwarnings
+filterwarnings(action='ignore')
+df= pd.read_csv('/content/Advertising.csv')
+df.head()
+df.tail()
+df.shape
+df.columns
+df=df.drop(columns=['Unnamed: 0'])
+df.info()
+df.dtypes
+df.describe()
+df.corr()
+df.isnull().sum()
+import seaborn as sns
+sns.heatmap(df.isnull())
+duplicate_count=df.duplicated().sum()
+print(duplicate_count)
+df.hist(bins=20,figsize=(10,10))
+plt.show()
+plt.figure(figsize=(15,7))
+sns.regplot(data=df,x='Sales',y='TV',scatter=True)
+plt.figure(figsize=(15,7))
+sns.regplot(data=df,x='Sales',y='Radio',scatter=True)
+plt.figure(figsize=(15,7))
+sns.regplot(data=df,x='Sales',y='Newspaper',scatter=True)
+sns.pairplot(df)
+fig,axs=plt.subplots(4,figsize=( 5,5 ))
+plt1=sns.boxplot(df['TV'],ax=axs[0])
+plt2=sns.boxplot(df['Radio'],ax=axs[1])
+plt3=sns.boxplot(df['Newspaper'],ax=axs[2])
+plt4=sns.boxplot(df['Sales'],ax=axe[3])
+plt.tight_layout()
+corrmat =df.cor()
+f,ax=plt.subplots(figsize=(12,9))
+sns.heatmap(corrmat,vmin=0,vmax=1,square=True,cmap="YlGnBu",ax=ax)
+plt.show()
+sns.set_style('whitegrid')
+plt.figure(figsize=(13,3))
+for i,column in enumerate(['TV','Radio','Newspaper','Sales'],start=1):
+  plt.subplot(1,4,i)
+  sns.histplot(df[column],kde=True,color='magenta')
+  plt.title('Distribution of '+ column)
+  plt.tight_layout()
+df.skew()
+df['Newspaper']=np.sqrt(df['Newspaper'])
+x=df.drop(columns=['Sales'])
+y=df['Sales']
+from sklearn.preprocessing import StandardScaler
+sc=StandardScaler()
+x=sc.fit_transform(x)
+df.skew()
+sns.distplot(df['Newspaper'])
+sns.displot(df['Radio'])
+sns.displot(df['TV'])
+plt.boxplot(df,vert=False,data=df,labels=df.columns)
+plt.show()
+def sc(): # Modified to define a proper function using 'def'
+    l = df.columns
+    for i in range(len(l) - 1):
+        for j in l:
+            s = plt.scatter(j, 'Sales', data=df)
+    return 's'  # Indentation aligned with the for loop
+
+sc() # Calling the sc function after it's been defined
+x= df.iloc[:,:3]
+y= df.iloc[:,3:]
+x
+y
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.3)
+model_1 = LinearRegression()
+model_1.fit(x_train, y_train)
+y_pred_1 = model_1.predict(x_test)
+
+mse = mean_squared_error(y_test, y_pred_1)
+r2 = r2_score(y_test, y_pred_1)
+print("Mean Square Error is :", mse)
+print("R-Squared score is :", r2)
+
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, y_pred_1, alpha=0.5, color='darkviolet')
+plt.xlabel('Actual Sales')
+plt.ylabel('Predicted Sales')
+plt.title('Actual vs. Predicted Sales (Linear Regression)')
+plt.show()
+model_2 = RandomForestRegressor()
+model_2.fit(x_train, y_train)
+y_pred_2 = model_2.predict(x_test)
+
+mse = mean_squared_error(y_test, y_pred_2)
+r2 = r2_score(y_test, y_pred_2)
+print("Mean Square Error is :", mse)
+print("R-Squared score is :", r2)
+
+plt.figure(figsize=(10, 6))
+
+plt.scatter(y_test, y_pred_2, label=model_2, alpha=0.5, color='green')
+plt.xlabel('Actual Sales')
+plt.ylabel('Predicted Sales')
+plt.title('Actual vs. Predicted Sales (Random Forest Regression)')
+plt.legend()
+plt.show()
+model_3 = Ridge()
+model_3.fit(x_train, y_train)
+y_pred_3 = model_3.predict(x_test)
+
+mse = mean_squared_error(y_test, y_pred_3)
+r2 = r2_score(y_test, y_pred_3)
+print("Mean Square Error is :", mse)
+print("R-Squared score is :", r2)
+
+plt.figure(figsize=(10, 6))
+
+plt.scatter(y_test, y_pred_3, label=model_3, alpha=0.5, color='darkblue')
+plt.xlabel('Actual Sales')
+plt.ylabel('Predicted Sales')
+plt.title('Actual vs. Predicted Sales (Ridge Regression)')
+plt.legend()
+plt.show()
+model_4 = Lasso()
+model_4.fit(x_train, y_train)
+y_pred_4 = model_4.predict(x_test)
+
+mse = mean_squared_error(y_test, y_pred_4)
+r2 = r2_score(y_test, y_pred_4)
+print("Mean Square Error is :", mse)
+print("R-Squared score is :", r2)
+
+plt.figure(figsize=(10, 6))
+
+plt.scatter(y_test, y_pred_4, label=model_4, alpha=0.5, color='black')
+plt.xlabel('Actual Sales')
+plt.ylabel('Predicted Sales')
+plt.title('Actual vs. Predicted Sales (Lasso Regression)')
+plt.legend()
+plt.show()
+model_4 = Lasso()
+model_4.fit(x_train, y_train)
+y_pred_4 = model_4.predict(x_test)
+
+mse = mean_squared_error(y_test, y_pred_4)
+r2 = r2_score(y_test, y_pred_4)
+print("Mean Square Error is :", mse)
+print("R-Squared score is :", r2)
+
+plt.figure(figsize=(10, 6))
+
+plt.scatter(y_test, y_pred_4, label=model_4, alpha=0.5, color='black')
+plt.xlabel('Actual Sales')
+plt.ylabel('Predicted Sales')
+plt.title('Actual vs. Predicted Sales (Lasso Regression)')
+plt.legend()
+plt.show()
+model_4 = Lasso()
+model_4.fit(x_train, y_train)
+y_pred_4 = model_4.predict(x_test)
+
+mse = mean_squared_error(y_test, y_pred_4)
+r2 = r2_score(y_test, y_pred_4)
+print("Mean Square Error is :", mse)
+print("R-Squared score is :", r2)
+
+plt.figure(figsize=(10, 6))
+
+plt.scatter(y_test, y_pred_4, label=model_4, alpha=0.5, color='black')
+plt.xlabel('Actual Sales')
+plt.ylabel('Predicted Sales')
+plt.title('Actual vs. Predicted Sales (Lasso Regression)')
+plt.legend()
+plt.show()
+model_4 = Lasso()
+model_4.fit(x_train, y_train)
+y_pred_4 = model_4.predict(x_test)
+
+mse = mean_squared_error(y_test, y_pred_4)
+r2 = r2_score(y_test, y_pred_4)
+print("Mean Square Error is :", mse)
+print("R-Squared score is :", r2)
+
+plt.figure(figsize=(10, 6))
+
+plt.scatter(y_test, y_pred_4, label=model_4, alpha=0.5, color='purple')
+plt.xlabel('Actual Sales')
+plt.ylabel('Predicted Sales')
+plt.title('Actual vs. Predicted Sales (Lasso Regression)')
+plt.legend()
+plt.show()
+model_6 = GradientBoostingRegressor()
+model_6.fit(x_train, y_train)
+y_pred_6 = model_6.predict(x_test)
+
+mse = mean_squared_error(y_test, y_pred_6)
+r2 = r2_score(y_test, y_pred_6)
+print("Mean Square Error is :", mse)
+print("R-Squared score is :", r2)
+
+plt.figure(figsize=(10, 6))
+
+plt.scatter(y_test, y_pred_6, label=model_6, alpha=0.5, color='black')
+plt.xlabel('Actual Sales')
+plt.ylabel('Predicted Sales')
+plt.title('Actual vs. Predicted Sales (Gradient Boosting Regression)')
+plt.legend()
+plt.show()
+from xgboost import XGBRegressor
+from sklearn.metrics import mean_squared_error, r2_score
+import matplotlib.pyplot as plt
+
+# Training the XGBoost model
+model_7 = XGBRegressor()
+model_7.fit(x_train, y_train)
+y_pred_7 = model_7.predict(x_test)
+
+# Evaluation
+mse = mean_squared_error(y_test, y_pred_7)
+r2 = r2_score(y_test, y_pred_7)
+print("Mean Square Error is :", mse)
+print("R-Squared score is :", r2)
+
+# Visualization
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, y_pred_7, label='XGBoost Regression Model', alpha=0.5, color='brown')
+plt.xlabel('Actual Sales')
+plt.ylabel('Predicted Sales')
+plt.title('Actual vs. Predicted Sales (XGBoost Regression)')
+plt.legend()
+plt.show()
+from sklearn.metrics import r2_score
+
+model_r2_scores = {
+    "Linear Regression Model": r2_score(y_test, y_pred_1),
+    "Random Forest Regression Model": r2_score(y_test, y_pred_2),
+    "Ridge Regression Model": r2_score(y_test, y_pred_3),
+    "Lasso Regression Model": r2_score(y_test, y_pred_4),
+    "Gradient Boosting Regression Model": r2_score(y_test, y_pred_6),
+    "XGBoost Regression Model": r2_score(y_test, y_pred_7),
+}
+
+model_r2_scores
+best_model_name = max(model_r2_scores, key=model_r2_scores.get)
+best_r2_score = model_r2_scores[best_model_name]
+print(f"The best model is {best_model_name} with an R-squared score of {best_r2_score:.2f}.")
+
