@@ -253,4 +253,18 @@ model_r2_scores
 best_model_name = max(model_r2_scores, key=model_r2_scores.get)
 best_r2_score = model_r2_scores[best_model_name]
 print(f"The best model is {best_model_name} with an R-squared score of {best_r2_score:.2f}.")
+plt.figure(figsize=(12,6))
+bars=plt.bar(model_r2_scores.keys(),model_r2_scores.values(),color='purple')
+for bar,model_name in zip(bars,model_r2_scores.keys()):
+  if model_name==best_model_name:
+    bar.set_color('red')
+for bar in bars:
+    yval=bar.get_height()
+    plt.text(bar.get_x()+bar.get_width()/2,yval,round(yval,4),
+             ha='center',va='bottom')
+    plt.xlabel('Model')
+    plt.ylabel('R^2 Score')
+    plt.title('Model Performance Comparison')
+    plt.xticks(rotation=45)
+    plt.show()
 
