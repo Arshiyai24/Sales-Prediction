@@ -46,3 +46,25 @@ The dataset contains information about:
 - Sales (Target Variable)
 
 ## Output
+![Image](https://github.com/user-attachments/assets/cf09d049-f469-4d59-82c5-48bd5df75fcb)
+
+![Image](https://github.com/user-attachments/assets/2cdb505b-6011-436e-a130-a18489a81e91)
+
+![Image](https://github.com/user-attachments/assets/120bd157-0c8c-4b37-9f19-4992cffdaa9e)
+
+![Image](https://github.com/user-attachments/assets/e189798b-1fde-47e9-83a8-c02ab284f0b5)
+
+![Image](https://github.com/user-attachments/assets/6621edb0-fa4a-45ad-b166-14e1c345b8be)
+
+![Image](https://github.com/user-attachments/assets/87101ad3-01b5-4913-af4f-3021c2594559)
+
+![Image](https://github.com/user-attachments/assets/d46bcc02-165f-4e4c-9263-08a40f45023d)
+
+![Image](https://github.com/user-attachments/assets/0e844caa-21fd-4119-a047-f52f55cf85a0)
+
+![Image](https://github.com/user-attachments/assets/6a4c3dca-022d-43cf-ab0d-928e151e7294)
+
+![Image](https://github.com/user-attachments/assets/7d3ab348-ada8-45be-a1f4-b79ea0cc5755)
+
+![Image](https://github.com/user-attachments/assets/7d4a58c0-fc27-4608-b34e-513b0d6dd132)
+
