@@ -82,5 +82,13 @@ The dataset contains information about:
 ![Image](https://github.com/user-attachments/assets/7d25fbe7-b403-4ab1-975b-5e4281b9d6cd)
 
 ![Image](https://github.com/user-attachments/assets/2be7f2c0-a3d6-420e-92db-68a135f4b577)
+![Image](https://github.com/user-attachments/assets/1cdb4644-2b3e-441e-b8e1-2fb31c381dec)
 
+![Image](https://github.com/user-attachments/assets/7e3282a5-c1bc-4bbe-97b9-8bace5f346b5)
+
+![Image](https://github.com/user-attachments/assets/d6ee08d2-0351-4243-8b35-a24275ce18ad)
+
+![Image](https://github.com/user-attachments/assets/1fba88bd-5c14-4fb5-89ab-9bc8388467c4)
+
+![Image](https://github.com/user-attachments/assets/ba6ad140-d518-4c3f-b5d0-b6be2150b415)
 
